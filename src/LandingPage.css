@@ -1,0 +1,398 @@
+html, body {
+  margin: 0; /* Remove default margin */
+  height: 100%; /* Ensure full height */
+  font-family: 'Inter', sans-serif; /* Use Inter font */
+}
+
+.landing-page {
+  position: relative; /* Keep this to position elements correctly */
+  margin-top: 0; /* Remove top margin */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center items horizontally */
+  justify-content: flex-start; /* Start from the top */
+  color: white;
+  font-family: 'Inter', sans-serif; /* Use Inter font */
+}
+
+.landing-page::before {
+  content: ''; /* Required for pseudo-element */
+  position: absolute; /* Position it absolutely within the parent */
+  top: 0; /* Align to top */
+  left: 0; /* Align to left */
+  right: 0; /* Stretch to the right */
+  bottom: 0; /* Stretch to the bottom */
+  background-color: rgba(0, 0, 0, 0.63); /* Black overlay with 63% opacity */
+  z-index: 1; /* Make sure it's behind other content */
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 25px 40px; /* Adjust padding for the navbar */
+  background-color: rgba(28, 28, 28, 0.3); /* Dark background with adjustable opacity */
+  position: fixed; /* Fixed positioning to stay at the top */
+  top: 0; /* Align to top of the viewport */
+  z-index: 1000; /* Ensure it stays above other elements */
+  
+}
+
+.logo {
+  margin-right: 480px; /* Pushes the logo to the right */
+  margin-left: 10px; /* Pushes the logo to the left */
+}
+
+.logo img {
+  height: 80px; /* Adjust height of logo as needed */
+  margin-right: 70px; /* adjust kekanan navbar */
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 45px; /* Space between links */
+  margin-left: 40px; /* Adjust this value to move links to the left */
+  margin-right: 60px; /* Optional: Adjust spacing on the right */
+}
+
+.nav-links a {
+  color: white; /* Link color */
+  text-decoration: none; /* Remove underline */
+  font-size: 20px; /* Adjust this value to set the font size */
+  transition: color 0.2s ease; /* Smooth transition for color change */
+}
+
+.nav-links a:hover {
+  color: grey; /* Change color on hover */
+}
+
+.content {
+  padding-top: 200px; /* Reduced padding to bring content closer */
+  margin-left: 0; /* Center content */
+  margin-right: 0; /* Center content */
+  position: relative; /* Allow stacking context */
+  z-index: 2; /* Ensure it appears above the overlay */
+  text-align: center; /* Center text */
+}
+
+.headline {
+  font-size: 100px; /* Adjust size as needed */
+  margin-bottom: 140px; /* Space below the headline */
+  margin-top: 0px; /* No top margin for higher placement */
+  position: relative; /* Keep for stacking context */
+  z-index: 3; /* Ensure the headline appears above the overlay */
+}
+
+.highlight {
+  color: #8C7457; /* Set the color for the highlighted text */
+}
+
+
+.book-button {
+  background-color: rgb(140, 116, 87); /* Button background color */
+  color: white; /* White text */
+  border: none; /* Remove default border */
+  padding: 20px 40px; /* Add padding for the button */
+  font-size: 35px; /* Font size */
+  border-radius: 12px; /* Rounded corners */
+  cursor: pointer; /* Change cursor on hover */
+  transition: background-color 0.3s ease; /* Smooth transition for background color */
+  position: relative; /* Ensure it stacks correctly */
+  z-index: 3; /* Ensure button appears above the overlay */
+}
+
+.book-button:hover {
+  background-color: rgba(109, 91, 71, 0.47); /* Change background color on hover */
+}
+
+
+.additional-background::before {
+  content: ''; /* Required for pseudo-element */
+  position: absolute; /* Position it absolutely within the parent */
+  top: 0; /* Align to top */
+  left: 0; /* Align to left */
+  right: 0; /* Stretch to the right */
+  bottom: 0; /* Stretch to the bottom */
+  background-color: rgba(0, 0, 0, 0.4); /* Black overlay with 63% opacity */
+  z-index: 1; /* Make sure it's behind other content */
+}
+
+.barbershop-info {
+  display: flex; /* Use flexbox for layout */
+  align-items: center; /* Center items vertically */
+  justify-content: space-between; /* Space out items */
+  padding: 50px 20px; /* Add padding for visual spacing */
+  padding-top: 170px; /* Reduced padding to bring content closer */
+  color: white; /* Set text color */
+  text-align: left; /* Align text to the left */
+  z-index: 3; /* Ensure button appears above the overlay */
+}
+
+.barbershop-image {
+  width: 520px; /* Set width of the image */
+  height: 360px; /* Keep aspect ratio */
+  border-radius: 14px; /* Optional: Rounded corners for the image */
+  margin-left: 30px; /* Space between image and text */
+}
+
+.location-info {
+  display: flex; /* Use flexbox for location layout */
+  align-items: center; /* Center items vertically */
+}
+
+.location-icon {
+  width: 45px; /* Set width for the location icon */
+  height: auto; /* Keep aspect ratio */
+  margin-right: 10px; /* Space between icon and text */
+}
+
+.info-text {
+  max-width: 100%; /* Limit text width */
+  font-family: 'Inter', sans-serif; /* Ensure the font is Inter */
+  margin-left: 120px; /* Space below the heading */
+}
+
+.info-text h2 {
+  font-size: 42px; /* Size of the heading */
+  margin-bottom: 40px; /* Space below the heading */
+}
+
+.info-text p {
+  font-size: 22px; /* Font size for the paragraphs */
+  margin: 5px 0; /* Space between paragraphs */
+}
+
+.info-text p:nth-child(4) {
+  margin-bottom: 30px; /* Additional space between Friday's hours and location */
+}
+
+.about-text {
+  max-width: 50%; /* Limit width for the text */
+  margin-left: 130px; /* Space on the right */
+}
+
+.about-text h2 {
+  font-size: 43px; /* Size of the heading */
+  margin-bottom: 40px; /* Space below the heading */
+}
+
+.about-text p {
+  font-size: 23px; /* Font size for the paragraph */
+  margin: 10px 0; /* Space around the paragraph */
+  margin-bottom: 10px; /* Space below the heading */
+}
+
+.about-image {
+  width: 560px; /* Set width of the image */
+  height: 280px; /* Maintain aspect ratio */
+  border-radius: 14px; /* Optional: Rounded corners for the image */
+  margin-right: 80px; /* Space on the right */
+  padding-top: 50px; /* Reduced padding to bring content closer */
+}
+
+.read-more-button {
+  background-color: #8C7457; /* Button background color */
+  color: white; /* White text */
+  border: none; /* Remove default border */
+  padding: 10px 20px; /* Add padding for the button */
+  font-size: 20px; /* Font size */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Change cursor on hover */
+  margin-top: 30px; /* Adjust this value to create space between text and button */
+  transition: background-color 0.3s ease; /* Smooth transition for background color */
+}
+
+.read-more-button:hover {
+  background-color: rgba(109, 91, 71, 0.8); /* Change background color on hover */
+}
+
+
+.additional-background {
+  display: flex; /* Use flexbox for layout */
+  flex-direction: column;
+  align-items: flex-start; /* Align items to the top */
+  justify-content: flex-start; /* Space between text and image */
+  color: white; /* Text color for content */
+  text-align: left; /* Align text to the left */
+  position: relative; /* Position relative for stacking */
+  z-index: 0; /* Ensure it stays below other content */
+  padding: 50px 20px; /* Add some padding for visual spacing */
+}
+
+.about-us {
+  display: flex; /* Use flexbox for layout */
+  align-items: flex-start; /* Align items to the top */
+  justify-content: space-between; /* Space between text and image */
+  width: 100%; /* Full width */
+  font-family: 'Inter', sans-serif; /* Ensure the font is Inter */
+  z-index: 3; /* Ensure button appears above the overlay */
+  padding-top: 10px; /* Reduced padding to bring content closer */
+}
+
+.founder {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 170px 20px;
+  color: white;
+  text-align: left;
+  position: relative;
+  z-index: 3; /* Ensure button appears above the overlay */
+}
+
+.founder-image {
+  flex: 1;
+}
+
+.founder-pic {
+  width: 320px; /* Circle size */
+  height: 320px; /* Circle size */
+  border-radius: 50%;
+  object-fit: cover;
+  margin-left: 230px; /* Adjust space between image and text */
+}
+
+.founder-info {
+  flex: 2;
+  margin-left: 120px; /* Adjust space between image and text */
+  
+}
+
+.founder-info h2 {
+  font-size: 42px;
+  margin-top: 0;
+  margin-bottom: 40px; /* Adjust space below the heading */
+}
+
+.founder-name {
+  font-size: 24px;
+  font-weight: lighter;
+  font-style: italic; /* This makes the text italic */
+  margin-bottom: 40px; /* Space between name and text */
+}
+
+.founder-info p {
+  font-size: 22px;
+  margin-top: 0px;
+  line-height: 1.5; /* Add line height for better readability */
+}
+
+.see-services-button {
+  background-color: transparent; /* Make the background transparent */
+  color: white; /* White text */
+  border: 2px solid white; /* White border */
+  padding: 18px 160px; /* Padding around the text */
+  font-size: 30px; /* Font size */
+  border-radius: 10px; /* Rounded corners */
+  cursor: pointer; /* Change cursor on hover */
+  text-transform: uppercase; /* Uppercase text */
+  font-weight: lighter; /* Thinner text */
+  transition: all 0.3s ease; /* Smooth transition for all properties */
+  display: inline-block;
+  margin-top: 90px; /* Space between text and button */
+  margin-left: -240px; /* Push the button to the right */
+}
+
+.see-services-button:hover {
+  color: #8C7457; /* Change text color on hover */
+  border: 2px solid #8C7457; /* Change border color on hover */
+}
+
+/* Footer Styles */
+.footer {
+  background-color: rgba(46, 35, 23, 0.85); /* Dark brown background */
+  color: rgb(0, 0, 0); /* black text */
+  padding: 10px 20px;
+  font-family: 'Inter', sans-serif; /* Use the Inter font */
+  text-align: left;
+}
+
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.footer-left {
+  flex: 1;
+  margin-left: 90px; /* Push the button to the right */
+}
+
+.footer-logo {
+  width: 180px; /* Adjust logo size */
+  margin-bottom: 15px;
+}
+
+.footer-left p {
+  font-size: 16px;
+  margin: 5px 0;
+}
+
+footer a {
+  color: rgb(0, 0, 0); /* Change the color of links to white */
+  text-decoration: none; /* Remove underline */
+}
+
+footer a:hover {
+  text-decoration: underline; /* Optional: Add underline on hover */
+}
+
+.footer-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Align items to the left */
+  flex: 1;
+  margin-left: 450px; /* Space between left and right sections */
+}
+
+.footer-right h3 {
+  font-size: 25px;
+  margin-bottom: 10px;
+  margin-right: 100px; /* Push the button to the right */
+}
+
+.footer-right p {
+  font-size: 16px;
+  margin: 5px 0;
+}
+
+.social-links {
+  margin-top: 15px;
+}
+
+.social-links a {
+  margin: 0 10px;
+}
+
+.social-icon {
+  width: 60px; /* Adjust icon size */
+  height: 60px;
+  object-fit: contain;
+  transition: opacity 0.3s ease;
+}
+
+.social-icon:hover {
+  opacity: 0.8;
+}
+
+.contact-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.contact-icons {
+  margin-right: 10px; /* Space between icon and text */
+}
+
+.contact-icon {
+  width: 25px; /* Icon size */
+  height: 25px;
+}
+
+.social-links {
+  margin-top: 1px; /* Adjust this value to control the space */
+}
