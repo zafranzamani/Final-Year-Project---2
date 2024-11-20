@@ -1,10 +1,11 @@
 // src/App.js
 import React from 'react';
-import { Routes, Route } from 'react-router-dom'; // Make sure to use Routes and Route for v6
+import { Routes, Route } from 'react-router-dom';
 import LandingPage from './LandingPage';
-import ServicePage from './pages/ServicePage'; // Make sure the path is correct
+import ServicePage from './pages/ServicePage'; // Correct path if it's in a subfolder
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import './LandingPage.css'; // Global styles
 
 function App() {
   return (

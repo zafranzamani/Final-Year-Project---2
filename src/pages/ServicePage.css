@@ -1,0 +1,79 @@
+
+/* Service Page Scoped Styles */
+.service-page {
+    text-align: center;
+    padding: 120px 20px;
+    font-family: 'Inter', sans-serif;
+    background-color: #252525f7;
+    color: #8C7457;
+  }
+  
+  .service-header h1 {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    color: rgba(255, 255, 255, 1);
+  }
+  
+  .service-header p {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 1);
+    font-style: italic; /* This makes the text italic */
+    line-height: 0.5; /* Adjust this value as needed */ 
+  }
+  
+   /* Service Cards */
+  .service-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    margin-top: 50px;
+    margin-bottom: 20px;
+    justify-content: center; /* Centers the items horizontally */
+  }
+  
+  
+  .service-card {
+    background-color: #4E4943; /* Card background color */
+    border-radius: 10px;
+    padding: 30px;
+    width: 250px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: transform 0.5s ease;
+  }
+  
+  .service-card:hover {
+    transform: translateY(-10px);
+  }
+  
+  .service-card h2 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Add shadow effect */
+  }
+  
+  .service-card p {
+    font-size: 1rem;
+    color: #d0d0d0;
+  }
+  
+  /* Book Button */
+  .book-button-container {
+    padding-top: 30px;
+  }
+  
+  .book-button {
+    background-color: rgb(140, 116, 87); /* Button background color */
+    color: white; /* White text */
+    border: none; /* Remove default border */
+    padding: 20px 20px; /* Add padding for the button */
+    font-size: 25px; /* Font size */
+    border-radius: 8px; /* Rounded corners */
+    cursor: pointer; /* Change cursor on hover */
+    transition: background-color 0.3s ease; /* Smooth transition for background color */
+    position: relative; /* Ensure it stacks correctly */
+    margin-bottom: 0px; /* Decrease the space between the button and footer */
+  }
+  
+  .book-button:hover {
+    background-color: rgba(109, 91, 71, 0.47); /* Change background color on hover */
+  }
