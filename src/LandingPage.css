@@ -1,4 +1,12 @@
 
+.fixed-wrapper {
+  display: flex;
+  width: 1920px; /* Fixed width for 1920x1080 resolution */
+  max-width: 100%; /* Ensure it doesn't overflow smaller screens */
+  margin: 0 auto; /* Center the content horizontally */
+  height: 100%;
+}
+
 .landing-page {
   position: relative; /* Keep this to position elements correctly */
   margin-top: 0; /* Remove top margin */
@@ -10,6 +18,7 @@
   font-family: 'Inter', sans-serif; /* Use Inter font */
   height: 100%; /* Ensure full height */
 }
+
 
 .landing-page::before {
   content: ''; /* Required for pseudo-element */
@@ -26,7 +35,7 @@
   display: flex;
   align-items: center;
   width: 100%;
-  padding: 25px 40px; /* Adjust padding for the navbar */
+  padding:1px 40px; /* Adjust padding for the navbar */
   background-color: rgba(28, 28, 28, 0.3); /* Dark background with adjustable opacity */
   position: fixed; /* Fixed positioning to stay at the top */
   top: 0; /* Align to top of the viewport */
@@ -36,12 +45,12 @@
 
 .logo {
   margin-right: 480px; /* Pushes the logo to the right */
-  margin-left: 10px; /* Pushes the logo to the left */
+  margin-left: 30px; /* Pushes the logo to the left */
 }
 
 .logo img {
-  height: 80px; /* Adjust height of logo as needed */
-  margin-right: 70px; /* adjust kekanan navbar */
+  height: 130px; /* Adjust height of logo as needed */
+  margin-right: 120px; /* adjust kekanan navbar */
 }
 
 .nav-links {
@@ -318,8 +327,8 @@
 }
 
 .footer-logo {
-  width: 180px; /* Adjust logo size */
-  margin-bottom: 15px;
+  width: 200px; /* Adjust logo size */
+  margin-bottom: -10px;
 }
 
 .footer-left p {
