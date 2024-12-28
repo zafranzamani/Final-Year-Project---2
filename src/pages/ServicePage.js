@@ -1,13 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
+import BookingModal from '../BookingModal';
 import './ServicePage.css';
 
 function ServicePage() {
+  const [isBookingOpen, setIsBookingOpen] = useState(false);
+
+  const openBookingModal = () => {
+    setIsBookingOpen(true);
+  };
+
+  const closeBookingModal = () => {
+    setIsBookingOpen(false);
+  };
+
   return (
     <div className="service-page">
       <div className="service-header">
         <h1>Our Services</h1>
-        <p>From classic cuts to the latest trends, our barbers are skilled in every style. </p> 
-        <p> Plus, we offer straight razor shaves for extra smooth finish.</p>
+        <p>From classic cuts to the latest trends, our barbers are skilled in every style. </p>
+        <p>Plus, we offer straight razor shaves for extra smooth finish.</p>
       </div>
       <div className="service-cards">
         <div className="service-card">
@@ -28,8 +39,11 @@ function ServicePage() {
         </div>
       </div>
       <div className="book-button-container">
-        <button className="book-button">BOOK YOUR CUT NOW</button>
+        <button className="book-button" onClick={openBookingModal}>
+          BOOK YOUR CUT NOW
+        </button>
       </div>
+      {isBookingOpen && <BookingModal onClose={closeBookingModal} />}
     </div>
   );
 }

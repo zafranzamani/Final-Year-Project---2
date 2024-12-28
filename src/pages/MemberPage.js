@@ -21,7 +21,7 @@ function MemberPage() {
 
         <form className="login-form">
           <div className="input-group">
-            <input type="text" placeholder="username" />
+            <input type="text" placeholder="Username" />
           </div>
           <div className="input-group password-group">
             <input
@@ -36,7 +36,7 @@ function MemberPage() {
             <label>
               <input type="checkbox" /> Remember me
             </label>
-            <a href="/" className="forgot-password">Forgot Password?</a>
+            <a href="/" className="forgot-password-member">Forgot Password?</a>
           </div>
           <button type="submit" className="login-button">LOGIN</button>
         </form>
