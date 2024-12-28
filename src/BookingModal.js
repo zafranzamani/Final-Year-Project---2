@@ -1,52 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import './BookingModal.css';
 
 function BookingModal({ onClose }) {
-  const [time, setTime] = useState('');
-  const [formattedTime, setFormattedTime] = useState('');
-  const [currentTime, setCurrentTime] = useState(new Date()); // Current time reference
   const [formData, setFormData] = useState({
     name: '',
     memberId: '',
     email: '',
+    barber: '',
     date: null,
     time: '',
   });
   const [errors, setErrors] = useState({});
-
-  useEffect(() => {
-    const now = new Date();
-    now.setMinutes(now.getMinutes() + 40); // Add 40 minutes
-    const options = { hour: '2-digit', minute: '2-digit', hour12: true };
-    setTime(now);
-    setFormattedTime(now.toLocaleTimeString([], options));
-    setFormData((prev) => ({ ...prev, time: now.toLocaleTimeString([], options) }));
-    setCurrentTime(new Date()); // Store current time
-  }, []);
-
-  const incrementTime = () => {
-    const newTime = new Date(time.getTime());
-    newTime.setMinutes(newTime.getMinutes() + 40);
-    setTime(newTime);
-    const newFormattedTime = newTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
-    setFormattedTime(newFormattedTime);
-    setFormData((prev) => ({ ...prev, time: newFormattedTime }));
-  };
-
-  const decrementTime = () => {
-    const newTime = new Date(time.getTime());
-    newTime.setMinutes(newTime.getMinutes() - 40);
-
-    // Prevent going below the allowed time limit
-    if (newTime < currentTime) return;
-
-    setTime(newTime);
-    const newFormattedTime = newTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
-    setFormattedTime(newFormattedTime);
-    setFormData((prev) => ({ ...prev, time: newFormattedTime }));
-  };
+  const [availableSlots] = useState([
+    '11:40 AM', '12:20 PM', '1:00 PM', '1:40 PM', '2:20 PM',
+    '3:00 PM', '3:40 PM', '4:20 PM', '5:00 PM', '5:40 PM',
+    '6:20 PM', '7:00 PM', '8:20 PM', '9:00 PM', '9:40 PM',
+    '10:20 PM', '11:00 PM', '11:40 PM', '12:20 AM', '1:00 AM'
+  ]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -70,7 +42,8 @@ function BookingModal({ onClose }) {
     if (!formData.name.trim()) newErrors.name = 'Name is required.';
     if (!formData.email.trim()) newErrors.email = 'Email is required.';
     if (!formData.date) newErrors.date = 'Date is required.';
-    if (!formData.time.trim()) newErrors.time = 'Time is required.';
+    if (!formData.barber) newErrors.barber = 'Barber selection is required.';
+    if (!formData.time) newErrors.time = 'Time is required.';
     return newErrors;
   };
 
@@ -83,7 +56,7 @@ function BookingModal({ onClose }) {
       return;
     }
 
-    console.log('Booking Data:', formData, 'Time:', formattedTime);
+    console.log('Booking Data:', formData);
     alert('Booking successful!');
     onClose();
   };
@@ -132,6 +105,25 @@ function BookingModal({ onClose }) {
           {errors.email && <p className="error-text">{errors.email}</p>}
 
           <label>
+            Select Barber <span className="required">*</span>
+          </label>
+          <div className="dropdown-container">
+            <select
+              name="barber"
+              value={formData.barber}
+              onChange={handleChange}
+              className={errors.barber ? 'input-error' : ''}
+              required
+            >
+              <option value="">Select Barber</option>
+              <option value="barber1">Barber 1</option>
+              <option value="barber2">Barber 2</option>
+            </select>
+            <span className="dropdown-icon">▼</span>
+          </div>
+          {errors.barber && <p className="error-text">{errors.barber}</p>}
+
+          <label>
             Date <span className="required">*</span>
           </label>
           <div className="date-picker-container">
@@ -156,14 +148,22 @@ function BookingModal({ onClose }) {
           <label>
             Time <span className="required">*</span>
           </label>
-          <div className="time-picker">
-            <button type="button" className="time-button" onClick={decrementTime}>
-              &lt;
-            </button>
-            <input type="text" value={formattedTime} readOnly className={errors.time ? 'input-error' : ''} />
-            <button type="button" className="time-button" onClick={incrementTime}>
-              &gt;
-            </button>
+          <div className="dropdown-container">
+            <select
+              name="time"
+              value={formData.time}
+              onChange={handleChange}
+              className={errors.time ? 'input-error' : ''}
+              required
+            >
+              <option value="">Select Time</option>
+              {availableSlots.map((slot) => (
+                <option key={slot} value={slot}>
+                  {slot}
+                </option>
+              ))}
+            </select>
+            <span className="dropdown-icon">▼</span>
           </div>
           {errors.time && <p className="error-text">{errors.time}</p>}
 
