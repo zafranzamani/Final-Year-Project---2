@@ -12,6 +12,7 @@ function BookingModal({ onClose }) {
     date: null,
     time: '',
   });
+  
   const [errors, setErrors] = useState({});
   const [availableSlots] = useState([
     '11:40 AM', '12:20 PM', '1:00 PM', '1:40 PM', '2:20 PM',

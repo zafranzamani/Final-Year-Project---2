@@ -1,11 +1,21 @@
 import React, { useState } from 'react';
 import './MemberPage.css';
+import CreateMember from './CreateMember';
 
 function MemberPage() {
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [isCreateMemberOpen, setIsCreateMemberOpen] = useState(false);
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
+  };
+  
+  const openCreateMember = () => {
+    setIsCreateMemberOpen(true);
+  };
+
+  const closeCreateMember = () => {
+    setIsCreateMemberOpen(false);
   };
 
   return (
@@ -32,7 +42,7 @@ function MemberPage() {
               {passwordVisible ? '👁️' : '👁️‍🗨️'}
             </span>
           </div>
-          <div className="options">
+          <div className="options-member">
             <label>
               <input type="checkbox" /> Remember me
             </label>
@@ -53,10 +63,19 @@ function MemberPage() {
           <h1 className="promo-discount">15% OFF</h1>
           <p className="promo-text22">for your every cut</p>
           <p className="promo-signup">
-            Don't have an account? <a href="/" className="create-account">Create an account</a>
+             Don't have an account?{' '}
+            <span
+              onClick={openCreateMember}
+              className="create-account-link"
+            >
+              Create an account
+            </span>
           </p>
         </div>
       </div>
+
+      {/* Create Member Modal */}
+      {isCreateMemberOpen && <CreateMember onClose={closeCreateMember} />}
     </div>
   );
 }

@@ -108,24 +108,24 @@
 .password-toggle:hover {
   color: #a3825c;
 }
-  .options {
+  .options-member {
     display: flex;
     justify-content: space-between; /* Space between Remember Me and Forgot Password */
     font-size: 0.9rem;
     margin-left: 95px;
-    margin-top: 5px;
+    margin-top: -10px;
     width: 69%; /* Match the input field width */
     margin-bottom: 10px;
   }
   
-  .options label {
+  .options-member label {
     display: flex;
     align-items: center; /* Align checkbox and text horizontally */
     gap: 5px; /* Add small spacing between checkbox and text */
     white-space: nowrap; /* Prevent text wrapping */
   }
   
-  .options input[type="checkbox"] {
+  .options-member input[type="checkbox"] {
     margin: 0; /* Reset margin for checkbox */
   }
   
@@ -139,7 +139,7 @@
   display: inline-block;
   transition: color 0.3s ease;
   margin-top: -10px;
-  transform: translateY(50%);
+  transform: translateY(85%);
 }
 
 .forgot-password-member:hover {
@@ -228,12 +228,11 @@
     font-size: 1rem;
   }
   
-  .create-account {
-    color: #F4C083;
-    text-decoration: none;
-    font-weight: bold;
-  }
-  .create-account:hover {
-    text-decoration: underline;
-  }
-  
+  .create-account-link {
+  color: #F4C083; /* Matching your theme */
+  cursor: pointer;
+}
+
+.create-account-link:hover {
+  text-decoration: underline;
+}

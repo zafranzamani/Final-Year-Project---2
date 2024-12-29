@@ -1,0 +1,173 @@
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6); /* Slightly darker overlay for modern look */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+/* Modal Content */
+.modal-content-member {
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 20px; /* Rounded edges for modern style */
+  width: 400px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* Soft shadow for depth */
+  position: relative;
+  animation: fadeIn 0.3s ease-in-out; /* Smooth fade-in effect */
+}
+
+/* Close Button */
+.close-button {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #333;
+  transition: color 0.3s;
+}
+
+.close-button:hover {
+  color: #a3825c; /* Highlight color for hover */
+}
+
+/* Form Title */
+.modal-content-member h1 {
+  font-size: 1.9rem;
+  font-weight: bold;
+  color: #333;
+  line-height: 0.5;
+  margin-bottom: 20px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Input Group */
+.input-group-member {
+  display: flex;
+  align-items: center;
+  border-radius: 8px;
+  margin-bottom: 5px;
+  padding: 5px;
+  margin-left:-5px ;
+}
+
+.input-group-member i {
+  font-size: 1.2rem;
+  color: #a3825c;
+}
+
+.input-group-member input {
+  flex: 1;
+  border: none;
+  background: none;
+  font-size: 1rem;
+  color: #333;
+  background-color: #f9f9f9;
+  outline: none;
+  margin-bottom: -10px;
+  font-family: 'Inter', sans-serif;
+}
+
+.input-group-member input::placeholder {
+  font-style: italic;
+  color: #aaa;
+}
+
+/* Terms Section */
+.terms {
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+  color: #555;
+  margin-top: 10px;
+  transform: translateY(-80%);
+}
+
+.terms input {
+  margin-right: 5px;
+  transform: translateY(35%);
+}
+
+.terms a {
+  color: #a3825c;
+  text-decoration: underline;
+}
+
+.terms a:hover {
+  color: #8c6a4e;
+}
+
+.error-text-member {
+  color: red;
+  font-size: 0.8rem;
+  margin-top: -10px;
+  margin-bottom: -10px;
+  margin-left: 10px;
+}
+
+.error-text-member-1 {
+  color: red;
+  font-size: 0.8rem;
+  margin-top: -20px;
+  margin-bottom: 5px;
+  margin-left: 10px;
+}
+
+/* Register Button */
+.register-button {
+  background: #a3825c;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.register-button:hover {
+  background: #8c6a4e;
+}
+
+/* Login Link */
+.login-link {
+  margin-top: 15px;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.login-link a {
+  color: #a3825c;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.login-link a:hover {
+  color: #8c6a4e;
+  text-decoration: underline;
+}
+
+/* Fade-in Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
