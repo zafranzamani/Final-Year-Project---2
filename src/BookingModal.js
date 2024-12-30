@@ -12,13 +12,16 @@ function BookingModal({ onClose }) {
     date: null,
     time: '',
   });
-  
+
   const [errors, setErrors] = useState({});
+  const [isConfirmationVisible, setIsConfirmationVisible] = useState(false);
+  const [loading, setLoading] = useState(false); // Add loading state
+
   const [availableSlots] = useState([
     '11:40 AM', '12:20 PM', '1:00 PM', '1:40 PM', '2:20 PM',
     '3:00 PM', '3:40 PM', '4:20 PM', '5:00 PM', '5:40 PM',
     '6:20 PM', '7:00 PM', '8:20 PM', '9:00 PM', '9:40 PM',
-    '10:20 PM', '11:00 PM', '11:40 PM', '12:20 AM', '1:00 AM'
+    '10:20 PM', '11:00 PM', '11:40 PM', '12:20 AM', '1:00 AM',
   ]);
 
   const handleChange = (e) => {
@@ -48,19 +51,102 @@ function BookingModal({ onClose }) {
     return newErrors;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     const newErrors = validateForm();
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
     }
+    
+    setLoading(true); // Show loading animation
 
-    console.log('Booking Data:', formData);
-    alert('Booking successful!');
-    onClose();
+    try {
+      const response = await fetch('http://localhost:5000/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          memberId: formData.memberId,
+          email: formData.email,
+          barber: formData.barber,
+          date: formData.date.toLocaleDateString(),
+          time: formData.time,
+        }),
+      });
+  
+      if (!response.ok) {
+        throw new Error('Failed to send email');
+      }
+  
+      const result = await response.json();
+      console.log('Email sent successfully:', result.message);
+      setIsConfirmationVisible(true); // Show the confirmation popup
+    } catch (error) {
+      console.error('Error during booking submission:', error.message);
+      alert('Failed to book your session. Please try again.');
+    } finally {
+      setLoading(false); // Hide loading animation
+    }
   };
+
+  if (loading) {
+    return (
+      <div className="loading-modal-overlay">
+        <div className="loading-modal-content">
+          <div className="spinner"></div>
+          <p>Sending your booking confirmation...</p>
+        </div>
+      </div>
+    );
+  }
+
+  const sendConfirmationEmail = async () => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        console.log('Simulated email sent successfully.');
+        resolve();
+      }, 1000); // Simulate a 1-second delay
+    });
+  };
+
+  if (isConfirmationVisible) {
+    return (
+      <div className="confirmation-modal-overlay">
+        <div className="confirmation-modal-content">
+          <div className="success-icon">
+            <i className="check-icon">✔</i>
+          </div>
+          <h2 className="confirmation-heading">Congratulations!</h2>
+          <p className="confirmation-message">Your booking is complete.</p>
+          <p className="confirmation-message">Check your email for the details.</p>
+          <div className="confirmation-note">
+            <strong>Note:</strong>
+            <ul>
+              <li>
+                If you do not arrive more than 10 minutes, your appointment will
+                be <span>canceled</span>.
+              </li>
+              <li>Mark your calendar with the booking date and time.</li>
+              <li>
+                Arrive a few minutes early to ensure everything goes smoothly.
+              </li>
+              <li>
+                If you have any questions or need to make changes, feel free to
+                reach out.
+              </li>
+            </ul>
+          </div>
+          <button className="confirmation-home-button" onClick={onClose}>
+            Home
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="modal-overlay">

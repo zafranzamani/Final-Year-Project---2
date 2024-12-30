@@ -1,0 +1,228 @@
+/* Dashboard Container */
+.dashboard-container {
+    display: flex;
+    height: 100vh;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  /* Dashboard Content */
+  .dashboard-content {
+    flex: 1;
+    padding: 20px;
+    background-color: #f7f7f7;
+    overflow-y: auto;
+  }
+  
+  .dashboard-content h1 {
+    font-size: 2.5rem;
+    color: #5a504f;
+    margin-bottom: 10px;
+  }
+  
+  .dashboard-content p {
+    font-size: 1.2rem;
+    color: #7a7a7a;
+  }
+  
+  /* Announcement Section */
+  .announcement-section {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .announcement-section h2 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    color: #5a504f;
+  }
+  
+  .announcement-input {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 15px;
+    background-color: #fafafa;
+    cursor: pointer;
+  }
+  
+  .placeholder {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .initial-icon {
+    width: 35px;
+    height: 35px;
+    background-color: #a3825c;
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+  }
+  
+  .input-with-button {
+    display: flex;
+    width: 100%;
+  }
+  
+  .input-with-button input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+  }
+  
+  .input-with-button button {
+    margin-left: 10px;
+    padding: 10px 20px;
+    background-color: #a3825c;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  
+  .input-with-button button:hover {
+    background-color: #8c6a4e;
+  }
+  
+  .announcement-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .announcement-list li {
+    padding: 10px;
+    background-color: #f9f9f9;
+    margin-bottom: 5px;
+    border-radius: 8px;
+  }
+  
+  /* Quick Access Section */
+  .quick-access-section {
+    margin-top: 30px;
+  }
+  
+  .quick-access-section h2 {
+    font-size: 1.8rem;
+    color: #5a504f;
+    margin-bottom: 10px;
+  }
+  
+  .quick-links {
+    display: flex;
+    gap: 15px;
+  }
+  
+  .quick-link {
+    flex: 1;
+    padding: 20px;
+    text-align: center;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+  }
+  
+  .quick-link:hover {
+    background-color: #f2f2f2;
+  }
+  
+  .quick-link a {
+    text-decoration: none;
+    color: #a3825c;
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  
+  .quick-link p {
+    color: #7a7a7a;
+    font-size: 1rem;
+  }
+  
+  .announcement-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .announcement-list .announcement-text {
+    flex-grow: 1;
+    font-size: 1rem;
+  }
+  
+  .announcement-list .announcement-time {
+    color: #999;
+    font-size: 0.9rem;
+  }
+  
+  .logout-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: #a3825c;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+  }
+  
+  .logout-button:hover {
+    background-color: #8c6a4e;
+  }
+  
+  .search-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    font-size: 14px;
+  }
+  
+  .pagination-controls {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+  
+  .pagination-button {
+    background-color: #a3825c;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+  }
+  
+  .pagination-button:hover {
+    background-color: #8c6a4e;
+  }
+  
+  .pagination-button:disabled {
+    background-color: #ddd;
+    color: #888;
+    cursor: not-allowed;
+  }
+  

@@ -2,16 +2,41 @@ import React, { useState } from 'react';
 import './StaffLogin.css';
 
 function StaffLogin() {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Login form submitted');
-    // Add your login logic here
+
+
+    try {
+      const response = await fetch('http://localhost:5000/staff-login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        alert(errorData.error || 'Failed to log in. Please try again.');
+        return;
+      }
+
+      const { accessToken, refreshToken } = await response.json();
+      sessionStorage.setItem('authToken', accessToken);
+      sessionStorage.setItem('refreshToken', refreshToken); // Store refresh token
+      window.location.href = '/dashboard';
+    } catch (error) {
+      console.error('Login error:', error.message);
+      alert('An error occurred. Please try again.');
+    }
   };
 
   return (
@@ -25,7 +50,13 @@ function StaffLogin() {
             <div className="icon user-icon">
               <img src={`${process.env.PUBLIC_URL}/user-icon.png`} alt="User Icon" />
             </div>
-            <input type="text" placeholder="Username" required />
+            <input
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              placeholder="Username"
+              required
+            />
           </div>
 
           {/* Password Input */}
@@ -35,6 +66,8 @@ function StaffLogin() {
             </div>
             <input
               type={passwordVisible ? 'text' : 'password'}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               placeholder="Password"
               required
             />

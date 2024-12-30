@@ -17,7 +17,7 @@ function ContactPage() {
     e.preventDefault();
   
     try {
-      const response = await fetch('http://localhost:5000/send-email', {
+      const response = await fetch('http://localhost:5000/send-contact-email', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -35,7 +35,8 @@ function ContactPage() {
       console.error('Error:', error);
       alert('An error occurred while sending the message.');
     }
-  };  
+  };
+  
 
   const handleWhatsApp = () => {
     const whatsappMessage = `Hello! My name is ${formData.name}. ${formData.message}`;
