@@ -10,7 +10,9 @@
     flex: 1;
     padding: 20px;
     background-color: #f7f7f7;
-    overflow-y: auto;
+    border-radius: 8px;
+    margin: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
   
   .dashboard-content h1 {

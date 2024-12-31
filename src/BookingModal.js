@@ -16,13 +16,7 @@ function BookingModal({ onClose }) {
   const [errors, setErrors] = useState({});
   const [isConfirmationVisible, setIsConfirmationVisible] = useState(false);
   const [loading, setLoading] = useState(false); // Add loading state
-
-  const [availableSlots] = useState([
-    '11:40 AM', '12:20 PM', '1:00 PM', '1:40 PM', '2:20 PM',
-    '3:00 PM', '3:40 PM', '4:20 PM', '5:00 PM', '5:40 PM',
-    '6:20 PM', '7:00 PM', '8:20 PM', '9:00 PM', '9:40 PM',
-    '10:20 PM', '11:00 PM', '11:40 PM', '12:20 AM', '1:00 AM',
-  ]);
+  const [availableSlots, setAvailableSlots] = useState([]); // Dynamic slots
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -33,15 +27,64 @@ function BookingModal({ onClose }) {
     }
   };
 
-  const handleDateChange = (date) => {
-    setFormData({ ...formData, date });
+  // Fetch available slots for the selected date and barber
+  const fetchAvailableSlots = async (date, barber) => {
+    if (!date || !barber) return;
+    
+  // Adjust the date to remove timezone offset
+  const localDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
+  const normalizedDate = localDate.toISOString().split('T')[0];
 
-    if (date) {
-      setErrors((prevErrors) => ({ ...prevErrors, date: '' }));
+  try {
+    const response = await fetch(
+      `http://localhost:5000/available-slots?date=${normalizedDate}&barber=${barber}`
+    );
+
+    console.log("Request URL:", response.url); // Log the URL being requested
+    console.log("Request Status:", response.status); // Log the response status
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch available slots.');
+      }
+
+      const data = await response.json();
+      console.log("Available Slots Data:", data); // Log the fetched data
+      setAvailableSlots(data.availableSlots || []);
+    } catch (error) {
+      console.error('Error fetching available slots:', error.message);
     }
   };
+  
+// Handle barber selection change
+const handleBarberChange = (e) => {
+  const barber = e.target.value;
+  console.log("Selected Barber:", barber); // Log the selected barber
+  setFormData({ ...formData, barber });
 
-  const validateForm = () => {
+  if (barber) {
+    setErrors((prevErrors) => ({ ...prevErrors, barber: '' }));
+  }
+
+  // Fetch slots if date is already selected
+  fetchAvailableSlots(formData.date, barber);
+};
+
+// Handle date selection change
+const handleDateChange = (date) => {
+  console.log("Selected Date:", date); // Log the selected date
+  setFormData({ ...formData, date });
+
+  if (date) {
+    setErrors((prevErrors) => ({ ...prevErrors, date: '' }));
+  }
+
+  // Fetch slots if barber is already selected
+  fetchAvailableSlots(date, formData.barber);
+};
+
+  
+   // Validate form before submission
+   const validateForm = () => {
     const newErrors = {};
     if (!formData.name.trim()) newErrors.name = 'Name is required.';
     if (!formData.email.trim()) newErrors.email = 'Email is required.';
@@ -51,19 +94,52 @@ function BookingModal({ onClose }) {
     return newErrors;
   };
 
-  const handleSubmit = async (e) => {
+
+   // Handle form submission
+   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
+    console.log('Selected Time:', formData.time); // Debug the time value
+
     const newErrors = validateForm();
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
     }
-    
-    setLoading(true); // Show loading animation
 
     try {
-      const response = await fetch('http://localhost:5000/send-email', {
+      // Adjust the date to account for the user's local time zone
+      const bookingDate = new Date(formData.date);
+      const adjustedDate = new Date(bookingDate.getTime() - bookingDate.getTimezoneOffset() * 60000);
+
+      // Save booking data to the database
+      const bookingResponse = await fetch('http://localhost:5000/book-session', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          memberId: formData.memberId,
+          email: formData.email,
+          barber: formData.barber,
+          date: adjustedDate.toISOString().split('T')[0], // Send date in YYYY-MM-DD format
+          time: formData.time,
+        }),
+      });
+
+      if (!bookingResponse.ok) {
+        const errorData = await bookingResponse.json();
+        throw new Error(errorData.error || 'Failed to save booking.');
+      }
+
+      const bookingResult = await bookingResponse.json();
+      console.log('Booking saved:', bookingResult);
+
+      setLoading(true); // Start loading animation
+  
+      // Send confirmation email
+      const emailResponse = await fetch('http://localhost:5000/send-email', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -77,19 +153,22 @@ function BookingModal({ onClose }) {
           time: formData.time,
         }),
       });
-  
-      if (!response.ok) {
-        throw new Error('Failed to send email');
+
+      if (!emailResponse.ok) {
+        const emailError = await emailResponse.json();
+        throw new Error(emailError.error || 'Failed to send email.');
       }
+
+      const emailResult = await emailResponse.json();
+      console.log('Email sent:', emailResult);
+
   
-      const result = await response.json();
-      console.log('Email sent successfully:', result.message);
-      setIsConfirmationVisible(true); // Show the confirmation popup
+      setIsConfirmationVisible(true); // Show confirmation modal
     } catch (error) {
-      console.error('Error during booking submission:', error.message);
-      alert('Failed to book your session. Please try again.');
+      console.error('Error:', error.message);
+      alert(error.message);
     } finally {
-      setLoading(false); // Hide loading animation
+      setLoading(false); // Stop loading animation
     }
   };
 
@@ -198,7 +277,7 @@ function BookingModal({ onClose }) {
             <select
               name="barber"
               value={formData.barber}
-              onChange={handleChange}
+              onChange={handleBarberChange}
               className={errors.barber ? 'input-error' : ''}
               required
             >

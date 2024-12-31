@@ -1,9 +1,10 @@
 /* Navbar Container */
 .navbar-staff {
     width: 250px;
-    height: 100vh;
+    height: 150vh;
     background-color: #8B7356;
     transition: width 0.3s ease-in-out;
+    font-family: 'Inter', sans-serif;
   }
   
   .navbar-staff.closed {

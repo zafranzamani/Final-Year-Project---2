@@ -1,0 +1,177 @@
+/* Global Container */
+.product-container {
+    display: flex;
+    font-family: "Inter", sans-serif;
+    height: 100vh; /* Full height of the viewport */
+}
+
+/* Product Content Section */
+.product-content {
+    flex: 1;
+    padding: 20px;
+    background-color: #f7f7f7;
+    border-radius: 8px;
+    margin: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.product-content h1 {
+    font-size: 2.5rem;
+    color: #5a504f;
+    margin-bottom: 10px;
+  }
+
+/* Product List Controls */
+.product-list-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Adjust spacing between dropdown and text */
+}
+
+/* Product List Section */
+.product-list-section {
+    margin-top: 20px;
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+}
+
+/* Header Section for Product List */
+.product-list-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: -20px; /* Space between header and list */
+}
+
+/* Table Header Row */
+.product-list-header-row {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr); /* Six equal columns */
+    gap: 30px; /* Space between columns */
+    font-weight: bold; /* Bold font for headers */
+    padding: 15px;
+    border-bottom: 1px solid #eaeaea; /* Divider line */
+    margin-top: 10px; /* Space from top */
+}
+
+/* Product Rows */
+.product-row {
+    display: contents; /* Allows contents to flow like normal */
+    align-items: center;
+    padding: 10px 0; /* Padding for row spacing */
+    background-color: #ffffff; /* Default background */
+}
+
+.product-row:hover {
+    background-color: #f4f4f4; /* Highlight row on hover */
+}
+
+/* Product Cells */
+.product-cell {
+    padding: 10px 14px; /* Padding inside each cell */
+    border-bottom: 1px solid #eaeaea; /* Divider line */
+}
+
+/* Table Structure */
+.product-table {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr); /* Six equal columns */
+    gap: 10px; /* Space between cells */
+}
+
+.input-product {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between input and button */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 130px; /* Adjust width as needed */
+}
+
+/* Add New Button */
+.add-new-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 20px; /* Rounded button */
+    padding: 8px 10px;
+    cursor: pointer;
+    transition: 0.3s; /* Smooth hover transition */
+    margin-left: 10px; /* Space between button and product list */
+    position: relative;
+    top: -6px; /* Move button up */
+}
+
+.add-new-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Show Dropdown */
+.show-dropdown {
+    position: relative;
+    width: 80px;
+    padding: 8px 10px;
+    font-size: 15px;
+    font-weight: 530;
+    color: #4a4a4a;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f7f7f7;
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    background: url('data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns%3D%22http://www.w3.org/2000/svg%22 viewBox%3D%220 0 4 5%22%3E%3Cpath fill%3D%22%23A9A9A9%22 d%3D%22M2 0L0 2h4zM2 5L0 3h4z%22/%3E%3C/svg%3E')
+      no-repeat right 10px center;
+    background-size: 10px 10px;  
+    top: 4px; /* Move it down */
+}
+
+
+.show-dropdown:hover,
+.show-dropdown:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.show-label {
+    font-size: 14px;
+    font-weight: bold;
+    margin-right: -8px;
+  }
+  
+/* Edit and Save Buttons */
+.edit-button,
+.save-button {
+    background-color: #007bff; /* Blue background */
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: 0.3s; /* Smooth hover transition */
+}
+
+.edit-button:hover,
+.save-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Print Button */
+.print-button {
+    background-color: #28a745; /* Green background */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-top: 20px; /* Space from top */
+    float: right; /* Align to the right */
+}
+
+.print-button:hover {
+    background-color: #218838; /* Darker green on hover */
+}
+
+

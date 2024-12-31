@@ -20,7 +20,7 @@ function NavbarStaff() {
         <NavLink to="/dashboard" activeClassName="active">
           Dashboard
         </NavLink>
-        <NavLink to="/customer" activeClassName="active">
+        <NavLink to="/customerstaff" activeClassName="active">
           Customer
         </NavLink>
         <NavLink to="/product" activeClassName="active">
