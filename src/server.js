@@ -300,7 +300,114 @@ app.get('/available-slots', async (req, res) => {
     }
   });
   
+  app.post('/add-product', async (req, res) => {
+    const { item_name, category, supplier_name, purchase_rate, in_stock } = req.body;
   
+    // Log incoming request
+    console.log('Incoming request:', req.body);
+  
+    // Validate request body
+    if (!item_name || !category || !supplier_name || !purchase_rate || !in_stock) {
+      console.error('Missing fields in request body');
+      return res.status(400).json({ error: 'Missing fields in request body' });
+    }
+  
+    try {
+      // Insert product into database
+      const [result] = await db.query(
+        `INSERT INTO product (item_name, category, supplier_name, purchase_rate, in_stock) VALUES (?, ?, ?, ?, ?)`,
+        [item_name, category, supplier_name, purchase_rate, in_stock]
+      );
+  
+      // Log successful insertion
+      console.log(`Product added successfully with ID: ${result.insertId}`);
+  
+      // Respond with success message
+      return res.status(201).json({
+        message: 'Product added successfully.',
+        productId: result.insertId,
+      });
+    } catch (error) {
+      console.error('Error adding product:', error.message);
+      return res.status(500).json({ error: 'Failed to add product' });
+    }
+  });
+  
+  
+app.get('/product', async (req, res) => {
+  try {
+    const [product] = await db.query('SELECT * FROM product ORDER BY created_at DESC');
+    res.json(product);
+  } catch (error) {
+    console.error('Error fetching product:', error.message);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+app.put('/update-product/:id', async (req, res) => {
+  const { id } = req.params;
+  const { purchase_rate, in_stock } = req.body;
+  console.log("Update Request:", { id, purchase_rate, in_stock });
+
+  if (!purchase_rate || !in_stock) {
+    return res.status(400).json({ error: 'Missing fields in request body' });
+  }
+
+  try {
+    const [result] = await db.query(
+      'UPDATE product SET purchase_rate = ?, in_stock = ? WHERE id = ?',
+      [purchase_rate, in_stock, id]
+    );
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: 'Product not found' });
+    }
+
+    res.json({ message: 'Product updated successfully' });
+  } catch (error) {
+    console.error('Error updating product:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
+app.delete('/delete-product/:id', async (req, res) => {
+  const { id } = req.params;
+  console.log('Deleting product with ID:', id);
+
+  try {
+    const [result] = await db.query('DELETE FROM product WHERE id = ?', [id]);
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: 'Product not found' });
+    }
+
+    res.json({ message: 'Product deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting product:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+app.get('/get-product/:id', async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const [rows] = await db.query('SELECT * FROM product WHERE id = ?', [id]);
+
+    if (rows.length === 0) {
+      return res.status(404).json({ error: 'Product not found' });
+    }
+
+    res.json(rows[0]);
+  } catch (error) {
+    console.error('Error fetching product:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
+
 // Start Server
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);

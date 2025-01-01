@@ -28,6 +28,34 @@
     gap: 10px; /* Adjust spacing between dropdown and text */
 }
 
+.product-list-controls-search {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Adjust spacing between input and button */
+    margin-bottom: 6px; /* Space from bottom */
+}
+
+.search-input-product {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    width: 250px; /* Adjust width as needed */
+}
+
+.close-search-button {
+    position: relative;
+    background: none;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+    color: #666;
+    right: 45px; /* Adjust position to the right */
+  }
+  
+  .close-search-button:hover {
+    color: #000;
+  }
+
 /* Product List Section */
 .product-list-section {
     margin-top: 20px;
@@ -48,7 +76,7 @@
 .product-list-header-row {
     display: grid;
     grid-template-columns: repeat(6, 1fr); /* Six equal columns */
-    gap: 30px; /* Space between columns */
+    gap: 20px; /* Space between columns */
     font-weight: bold; /* Bold font for headers */
     padding: 15px;
     border-bottom: 1px solid #eaeaea; /* Divider line */
@@ -69,7 +97,10 @@
 
 /* Product Cells */
 .product-cell {
-    padding: 10px 14px; /* Padding inside each cell */
+    padding: 13px 0px; /* Padding inside each cell */
+    text-align: left;
+    position: relative;
+    left: 11px; /* Adjust position to the right */
     border-bottom: 1px solid #eaeaea; /* Divider line */
 }
 
@@ -77,17 +108,19 @@
 .product-table {
     display: grid;
     grid-template-columns: repeat(6, 1fr); /* Six equal columns */
-    gap: 10px; /* Space between cells */
+    column-gap: 1px; /* Increase space between columns */
 }
 
 .input-product {
     display: flex;
+    position: relative;
+    bottom: 10px; /* Adjust position to the bottom */
     align-items: center;
     gap: 10px; /* Space between input and button */
-    padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     width: 130px; /* Adjust width as needed */
+    margin-bottom: -15px; /* Space from bottom */
 }
 
 /* Add New Button */
@@ -106,12 +139,33 @@
 
 .add-new-button:hover {
     background-color: #0056b3; /* Darker blue on hover */
+    box-shadow: 0 2px 10px rgba(220, 53, 69, 0.2);
+}
+.search-button {
+    background-color: #a0a0a0;
+    color: white;
+    border: none;
+    border-radius: 20px; /* Rounded button */
+    padding: 8px 15px;
+    cursor: pointer;
+    transition: 0.3s; /* Smooth hover transition */
+    margin-left: 10px; /* Space between button and product list */
+    position: relative;
+    top: -6px; /* Move button up */
+    text-align: left; /* Align text to the left */
+    padding-right: 15px; /* Adjust padding to move text left */
+    padding-left: 5px; /* Adjust padding to move text left */
+}
+
+.search-button:hover {
+    background-color: #b0b0b0; /* Darker blue on hover */
+    box-shadow: 0 2px 10px rgba(220, 53, 69, 0.2);
 }
 
 /* Show Dropdown */
 .show-dropdown {
     position: relative;
-    width: 80px;
+    width: 70px;
     padding: 8px 10px;
     font-size: 15px;
     font-weight: 530;
@@ -126,6 +180,7 @@
       no-repeat right 10px center;
     background-size: 10px 10px;  
     top: 4px; /* Move it down */
+    left: 2px;
 }
 
 
@@ -138,7 +193,9 @@
 .show-label {
     font-size: 14px;
     font-weight: bold;
-    margin-right: -8px;
+    margin-right: -4px;
+    position: relative;
+    left: 4px; /* Adjust this value to move the element to the right */
   }
   
 /* Edit and Save Buttons */
@@ -156,10 +213,14 @@
 .edit-button:hover,
 .save-button:hover {
     background-color: #0056b3; /* Darker blue on hover */
+    box-shadow: 0 2px 10px rgba(220, 53, 69, 0.2);
 }
 
 /* Print Button */
 .print-button {
+    position: relative;
+    right: 20px; /* Adjust position to the right */
+    top: 15px; /* Adjust position to the top */
     background-color: #28a745; /* Green background */
     color: white;
     padding: 10px 20px;
@@ -175,3 +236,106 @@
 }
 
 
+  /* Confirmation Modal */
+  .modal-overlay-comfirmation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6); /* Slightly darker for better contrast */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+ 
+    .modal-comfirmation {
+        background-color: #f0f8ff;
+        border: 2px solid #4caf50;
+        text-align: center;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Stronger shadow for depth */
+        width: 420px;
+        max-width: 90%;
+        animation: fadeIn 0.3s ease-in-out, fadeOut 0.5s ease-in-out;
+    }
+
+  .modal-comfirmation p {
+    margin: 10px 0;
+  }
+  
+  /* Delete Modal */
+  .modal-overlay-delete {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6); /* Slightly darker for better contrast */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+ 
+    .modal-delete {
+        background-color: #f0f8ff;
+        border: 2px solid #4caf50;
+        text-align: center;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Stronger shadow for depth */
+        width: 350px;
+        max-width: 90%;
+        animation: fadeIn 0.3s ease-in-out, fadeOut 0.5s ease-in-out;
+    }
+
+  .modal-delete p {
+    margin: 25px 0;
+  }  
+ 
+.delete-button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    position: relative;
+    left: 5px;
+    border-radius: 20px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: 0.3s; /* Smooth hover transition */
+}
+
+.delete-button:hover {
+    background-color: #c82333;
+    box-shadow: 0 2px 10px rgba(220, 53, 69, 0.2);
+}
+
+
+.modal-delete-confirm {
+    background-color: #dc3545;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+.modal-delete-confirm:hover {
+    background-color: #c82333;
+  }
+
+  .modal-delete-cancel {
+    background-color: #6c757d;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+    .modal-delete-cancel:hover {
+        background-color: #5a6268;
+    }
