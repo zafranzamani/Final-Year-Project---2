@@ -1,0 +1,294 @@
+/* Add or modify these styles in your MemberDashboard.css */
+/* Name Prompt Overlay */
+.name-prompt-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .name-prompt {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+  }
+  
+  .name-prompt input {
+    width: 100%;
+    padding: 10px;
+    margin: 15px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .name-prompt button {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+.dashboard-content {
+    max-width: 1200px; /* Increased width to accommodate side by side layout */
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  /* Create a flex container for QR and card */
+  .top-section {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 30px;
+    justify-content: center;
+    align-items: flex-start;
+  }
+  
+/* QR Section */
+.qr-section {
+    flex: 0 0 auto;
+    width: 400px; /* Changed from 300px to match membership card */
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+  
+  .qr-placeholder {
+    width: 100%;
+    height: 300px; /* Increased height to maintain proportion */
+    border: 2px solid #eee;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  }
+
+  /* Membership Card */
+  .membership-card {
+    flex: 0 0 auto; /* Don't grow or shrink */
+    width: 400px;
+    background: linear-gradient(to right, #a8a8a8, #666666);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  }
+  
+  .membership-card h2 {
+    color: white;
+    font-size: 24px;
+    margin-bottom: 20px;
+    border: none;
+  }
+  
+  .card-content {
+    position: relative;
+    padding: 20px 0;
+  }
+  
+  .level {
+    color: white;
+    font-size: 32px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  
+  .discount {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: white;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .expiry {
+    margin-top: 20px;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 14px;
+  }
+  
+  /* Member Info Section */
+  .member-info {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    margin-top: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .info-row {
+    display: flex;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .info-row label {
+    min-width: 120px;
+    color: #666;
+  }
+  
+  .change-button {
+    margin-left: auto;
+    color: #ffa726;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    background: none;
+    padding: 5px 10px;
+  }
+
+  /*position: relative;
+  left: 774px;*/
+
+  .change-button-password {
+    margin-left: auto;
+    color: #ffa726;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    background: none;
+    padding: 5px 10px;
+  }
+
+  .toggle-password-display {
+    margin-left: auto;
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  .logout-button-memberdashboard {
+    width: 100%;
+    padding: 15px;
+    background: #a3825c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .logout-button-memberdashboard:hover {
+    background: #8c6a4e;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+  .qr-section,
+  .membership-card {
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .qr-placeholder {
+    height: 300px;
+  }
+  }
+
+  /* Edit Fields */
+.edit-field {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  
+  .password-input-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  
+
+
+  
+  .save-button {
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .cancel-button {
+    background: #dc3545;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  
+  .password-display input {
+    border: none;
+    background: none;
+    padding: 5px;
+    font-family: inherit;
+    font-size: inherit;
+  }
+  
+
+  .password-field {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-left: 10px;
+  }
+  
+  .password-display {
+    position: relative;
+    align-items: center;
+    right: 6px;
+    gap: 5px;
+  }
+  
+  .toggle-password {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    font-size: 16px;
+    margin-left: 5px !important;
+  }
+  
+  .toggle-password:hover {
+    opacity: 0.8;
+  }
+
+  
+  /* Make sure your existing info-row style includes these */
+  .info-row {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+  }
+  
+  .info-row label {
+    min-width: 120px;
+    margin-right: 10px;
+  }

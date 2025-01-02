@@ -1,100 +1,115 @@
-/* CustomerStaff.css */
-
+/* General Container Styling */
 .customer-staff-container {
-    display: flex;
-    height: 100vh;
-    font-family: 'Inter', sans-serif;
-  }
-  
-  .customer-staff-content {
-    flex: 1;
-    padding: 20px;
-    background-color: #f7f7f7;
-    border-radius: 8px;
-    margin: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .customer-staff-content h1 {
-    font-size: 2.5rem;
-    color: #5a504f;
-    margin-bottom: 10px;
-  }
-  
-  .customer-staff-content h2 {
-    font-size: 1.4rem;
-    color: #4a4a4a;
-    margin-top: 30px;
-    margin-bottom: 15px;
-    border-bottom: 1px solid #e0e0e0;
-    padding-bottom: 5px;
-  }
-  
-  
-  .manage-sale-section {
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
+  display: flex;
+  font-family: 'Inter', sans-serif;
+}
 
-  .manage-sale-section h2 {
-    font-size: 20px;
-    color: #4a4a4a;
-    margin-bottom: 15px;
-  }
-  .sales-record-section,
-  .booked-customer-section {
-    margin-bottom: 30px;
-  }
+.customer-staff-content {
+  flex: 1;
+  padding: 20px;
+  background-color: #f7f7f7;
+  border-radius: 8px;
+  margin: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.customer-staff-content h1 {
+  font-size: 2.5rem;
+  color: #5a504f;
+  margin-bottom: 20px;
+}
+
+.customer-staff-content h2 {
+  font-size: 1.5rem;
+  color: #555;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 8px;
+}
+
+/* Manage Sale Section */
+.manage-sale-section {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Updated card-body to flex layout */
+.card-body {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  margin-bottom: 30px;
   
-  .sale-form {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr auto; /* Adjusted grid for layout */
-    gap: 20px;
-    align-items: center;
-  }
+}
+
+.dropdown-icon-customer {
+  position: absolute;
+  right: 905px;
+  top: 44.5%;
+  transform: translateY(-50%);
+  font-size: 1.2rem;
+  color: #666;
+  pointer-events: none;
+}
+
+.sale-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
   
-  .sale-form label {
-    font-size: 14px;
-    color: #4a4a4a;
-  }
-  
-  .sale-form select {
-    padding: 10px;
-    border: 1px solid #d0d0d0;
-    border-radius: 4px;
-    font-size: 14px;
-    background: url('data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns%3D%22http://www.w3.org/2000/svg%22 viewBox%3D%220 0 4 5%22%3E%3Cpath fill%3D%22%23A9A9A9%22 d%3D%22M2 0L0 2h4zM2 5L0 3h4z%22/%3E%3C/svg%3E')
-      no-repeat right 10px center;
-    background-size: 10px 10px;
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-  }
-  
-  .membership-options,
-  .payment-options {
-    display: flex;
-    gap: 10px;
-  }
-  
+}
+
+
+/* Label styling - moved to top */
+.sale-form label {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+  display: block;
+  font-size: 17px;
+  padding-bottom: 8px;
+}
+
+/* Dropdown Styling */
+.sale-form select {
+  width: 100%;
+  padding: 37px 20px; /* Adjusted padding */
+  font-size: 18px;
+  background-color: #f0f0f0;
+}
+
+/* Membership and Payment Options */
+.membership-options{
+  display: flex;
+  gap: 3px; /* Reduced gap between buttons */
+}
+.payment-options {
+  display: flex;
+  gap: 3px; /* Reduced gap between buttons */
+}
+
 .membership-button,
 .payment-button {
-  padding: 10px 15px;
-  background-color: #f4f4f4;
+  flex: 1; /* Make buttons take equal space */
+  padding: 40px 20px; /* Adjusted padding */
+  background-color: #f0f0f0;
   border: 1px solid #d0d0d0;
-  border-radius: 20px;
   font-size: 14px;
   cursor: pointer;
-  transition: all 0.1s ease;
+  transition: all 0.1.5s ease;
+  text-align: center;
+  white-space: nowrap;
 }
-  
+
 .membership-button:hover,
 .payment-button:hover {
   background-color: #e0e0e0;
 }
-  
+
 .membership-button.active,
 .payment-button.active {
   background-color: #007bff;
@@ -102,103 +117,146 @@
   border-color: #007bff;
 }
 
-.member-id-input {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  width: 200px; /* Adjust width as needed */
-  }
-  
-  .input-member-id-container {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }  
-  .done-button {
-    background-color: #007bff;
-  color: white;
-  padding: 10px 20px;
+/* Member ID Input */
+.member-id-input-wrapper {
+  align-items: center;
+  width: 100%; /* Make wrapper take full width */
+  height: 100%; /* Make wrapper take full height */
+  justify-content: center; /* Center the input field */
+}
+
+.input-group {
+  height: 100%; /* Make input group take full height */
+}
+
+.member-id-input-customer {
+  position: relative;
+  right: 90px; /* Adjust position to the right */
+  top: 25px; /* Adjust position from top */
+  width: 100px; /* Increased width */
+  border: 1px solid #d0d0d0;
+  padding: 40px 20px;
+  font-size: 14px;
+  background-color: #ffffff;
+}
+
+.close-button-member {
+  position: absolute; /* Position the close button absolutely */
+  right: 55px; /* Position from right */
+  top: 75px; /* Position from bottom */
+  background: none;
   border: none;
-  border-radius: 20px;
+  font-size: 14px;
+  cursor: pointer;
+  color: #030303;
+  padding: 4px 8px;
+}
+
+.close-button-member:hover {
+  color: #ff0000;
+}
+
+/* Done Button */
+.done-button {
+  padding: 40px 20px;
+  position: relative;
+  top: 50px;
+  background-color: #03d310;
+  color: white;
+  border: none;
   font-size: 14px;
   cursor: pointer;
   transition: all 0.3s ease;
-  }
-  
-  .done-button:hover {
-    background-color: #0056b3;
-  }
-  
-  .sales-record-section ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .sales-list li {
-    margin: 10px 0;
-    padding: 10px;
-    background-color: #f4f4f4;
-    border: 1px solid #d0d0d0;
-    border-radius: 4px;
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .booked-customer-section {
-    margin-top: 40px;
-  }
-  
-  .booked-customer-section table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-  }
-  
-  .booked-customer-section th,
-  .booked-customer-section td {
-    text-align: left;
-    padding: 12px;
-    border-bottom: 1px solid #e0e0e0;
-  }
-  
-  .booked-customer-section th {
-    font-size: 16px;
-    color: #4a4a4a;
-  }
-  
-  .booked-customer-section td {
-    font-size: 14px;
-    color: #4a4a4a;
-  }
-  
-  .booked-customer-section .see-all-button {
-    margin-top: 15px;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 14px;
-    cursor: pointer;
-  }
-  
-  .booked-customer-section .see-all-button:hover {
-    background-color: #0056b3;
-  }
-  
+  min-width: 100px;
+}
 
-  .close-button-member {
-    background-color: #ff4d4d;
+.done-button:hover {
+  background-color: #39b300;
+}
+
+/* Sales Record */
+.sales-list {
+  list-style: none;
+  padding: 0;
+}
+
+.sales-list li {
+  padding: 15px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.sale-info {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.no-sales {
+  text-align: center;
+  color: #777;
+  font-size: 14px;
+  padding: 20px;
+}
+
+/* Confirmation Section Styling */
+.confirmation-section {
+  text-align: center;
+  padding: 40px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.confirmation-section h1 {
+  color: #2c3e50;
+  font-size: 28px;
+  margin-bottom: 15px;
+}
+
+.confirmation-section p {
+  color: #666;
+  font-size: 16px;
+  margin-bottom: 25px;
+}
+
+.member-id-wrapper {
+  margin: 30px 0;
+}
+
+.member-id-wrapper p {
+  color: #555;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.member-id-box {
+  background: #f8f9fa;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  padding: 15px 25px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #2c3e50;
+  display: inline-block;
+  min-width: 150px;
+  letter-spacing: 2px;
+}
+
+.confirmation-button {
+  background-color: #4CAF50;
   color: white;
   border: none;
-  border-radius: 50%;
-  font-size: 14px;
-  padding: 5px 10px;
+  padding: 12px 30px;
+  border-radius: 25px;
+  font-size: 16px;
   cursor: pointer;
-  transition: all 0.2s ease;
-  }
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
+}
 
-
-  .close-button-member:hover {
-    background-color: #d32f2f;
-  }
+.confirmation-button:hover {
+  background-color: #45a049;
+}

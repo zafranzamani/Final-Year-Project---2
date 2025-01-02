@@ -1,77 +1,103 @@
 import React, { useEffect } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
-import ScrollToTop from './ScrollToTop'; // Component to scroll to top on route change
+import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
+import ScrollToTop from './ScrollToTop';
 import LandingPage from './LandingPage';
-import ServicePage from './pages/ServicePage'; // Correct path if it's in a subfolder
-import ContactPage from './pages/ContactPage'; // Import the new ContactPage
-import MemberPage from './pages/MemberPage'; // Import the new MemberPage
-import StaffLogin from './pages/StaffLogin'; // Import the new StaffLogin
-import Dashboard from './pages/Dashboard'; // Import the Dashboard component
-import CustomerStaff from './pages/CustomerStaff'; // Import CustomerStaff component
-import Product from './pages/Product'; // Import Product component
-import Supplier from './pages/Supplier'; // Import Supplier component
-import Report from './pages/Report'; // Import Report component
-import ProtectedRoute from './pages/ProtectedRoute'; // Import the ProtectedRoute component
+import ServicePage from './pages/ServicePage';
+import ContactPage from './pages/ContactPage';
+import MemberPage from './pages/MemberPage';
+import StaffLogin from './pages/StaffLogin';
+import Dashboard from './pages/Dashboard';
+import CustomerStaff from './pages/CustomerStaff';
+import Product from './pages/Product';
+import Supplier from './pages/Supplier';
+import Report from './pages/Report';
+import ProtectedRoute from './pages/ProtectedRoute';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import SessionManager from './SessionManager'; // Import SessionManager
-import './LandingPage.css'; // Global styles
-import { monitorToken } from './SessionManager'; // Import token monitoring function
+import SessionManager from './SessionManager';
+import './LandingPage.css';
+import { monitorToken } from './SessionManager';
+import MemberDashboard from './pages/memberDashboard';
 
 function App() {
   const location = useLocation();
 
-  // Hide Navbar and Footer for specific routes
+  const validRoutes = [
+    '/',
+    '/services',
+    '/contact',
+    '/member',
+    '/staff',
+    '/dashboard',
+    '/customerstaff',
+    '/product',
+    '/supplier',
+    '/report',
+    '/member-dashboard'
+  ];
+  // If current path is not in valid routes, hide navbar and footer
+  const isValidRoute = validRoutes.includes(location.pathname);
+  
   const hideNavbarFooterRoutes = [
     '/dashboard',
     '/customerstaff',
     '/product',
     '/supplier',
     '/report',
-  ]; // Add protected routes here
+    '/member-dashboard',
+  ];
   const shouldHideNavbarFooter = hideNavbarFooterRoutes.includes(location.pathname);
 
-  // Initialize session monitoring
   useEffect(() => {
-    monitorToken(); // Starts monitoring session expiration
+    monitorToken();
   }, []);
 
   return (
     <>
-      {/* Conditionally render Navbar */}
       {!shouldHideNavbarFooter && <Navbar />}
-      <ScrollToTop /> {/* Ensures top positioning on route changes */}
+      <ScrollToTop />
       <Routes>
         {/* Public Routes */}
-        <Route path="/" element={<LandingPage />} /> {/* Home Route */}
-        <Route path="/services" element={<ServicePage />} /> {/* Services Route */}
-        <Route path="/contact" element={<ContactPage />} /> {/* Contact Page Route */}
-        <Route path="/member" element={<MemberPage />} /> {/* Member Page Route */}
-        <Route path="/staff" element={<StaffLogin />} /> {/* Staff Login Page */}
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/services" element={<ServicePage />} />
+        <Route path="/contact" element={<ContactPage />} />
+        <Route path="/member" element={<MemberPage />} />
+        <Route path="/staff" element={<StaffLogin />} />
 
-        {/* Protected Routes */}
+        {/* Protected Member Route */}
+        <Route
+          path="/member-dashboard"
+          element={
+            <ProtectedRoute type="member">
+              <SessionManager />
+              <MemberDashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Protected Staff Routes */}
         <Route
           path="/dashboard"
           element={
-            <ProtectedRoute>
-              <SessionManager /> {/* Include SessionManager to handle session timeout */}
-              <Dashboard /> {/* Only accessible if authenticated */}
+            <ProtectedRoute type="staff">
+              <SessionManager />
+              <Dashboard />
             </ProtectedRoute>
           }
         />
         <Route
           path="/customerstaff"
           element={
-            <ProtectedRoute>
-              <SessionManager /> {/* Include SessionManager to handle session timeout */}
-              <CustomerStaff /> {/* Only accessible if authenticated */}
+            <ProtectedRoute type="staff">
+              <SessionManager />
+              <CustomerStaff />
             </ProtectedRoute>
           }
         />
         <Route
           path="/product"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute type="staff">
               <SessionManager />
               <Product />
             </ProtectedRoute>
@@ -80,7 +106,7 @@ function App() {
         <Route
           path="/supplier"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute type="staff">
               <SessionManager />
               <Supplier />
             </ProtectedRoute>
@@ -89,14 +115,14 @@ function App() {
         <Route
           path="/report"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute type="staff">
               <SessionManager />
               <Report />
             </ProtectedRoute>
           }
         />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
-      {/* Conditionally render Footer */}
       {!shouldHideNavbarFooter && <Footer />}
     </>
   );

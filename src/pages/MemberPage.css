@@ -146,6 +146,24 @@
   text-decoration: underline;
 }
   
+.error-message-member-login {
+  color: #ff0019;
+  font-size: 14px;
+  margin-bottom: -15px;
+  margin-left: 10px;
+  padding: 10px;
+  font-weight: 500;
+  border-radius: 4px;
+  position: relative;
+  top: -10px;
+  right: -80px;
+}
+
+.login-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
   .login-button {
     background-color: #A3825C;
     color: #fff;
@@ -236,3 +254,4 @@
 .create-account-link:hover {
   text-decoration: underline;
 }
+

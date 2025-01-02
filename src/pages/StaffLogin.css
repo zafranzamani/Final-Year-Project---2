@@ -157,6 +157,18 @@ input::placeholder {
     font-size: 0.9rem;
 }
 
+
+.error-message {
+    color: red;
+    margin-top: -10px;
+    margin-bottom: -15px;
+    font-size: 15px;
+    text-align: center;
+    position: relative;
+    right: 60px;
+    bottom: 12px;
+  }
+  
 /* Responsive Design */
 @media (max-width: 768px) {
     .staff-login-box {

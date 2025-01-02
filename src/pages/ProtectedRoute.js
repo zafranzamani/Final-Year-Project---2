@@ -1,16 +1,26 @@
 import React from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 
-function ProtectedRoute({ children }) {
-  const authToken = sessionStorage.getItem('authToken'); // Retrieve the token from sessionStorage
-  const location = useLocation(); // Get the current location
-
-  if (!authToken) {
-    // Redirect to login page, preserving the current location
-    return <Navigate to="/staff" state={{ from: location.pathname }} />;
+function ProtectedRoute({ children, type = 'staff' }) {
+  const location = useLocation();
+  
+  // Check for staff auth
+  if (type === 'staff') {
+    const authToken = sessionStorage.getItem('authToken');
+    if (!authToken) {
+      return <Navigate to="/staff" state={{ from: location.pathname }} />;
+    }
+  }
+  
+  // Check for member auth
+  if (type === 'member') {
+    const memberToken = localStorage.getItem('memberToken') || sessionStorage.getItem('memberToken');
+    if (!memberToken) {
+      return <Navigate to="/member" state={{ from: location.pathname }} />;
+    }
   }
 
-  return children; // Allow access to the protected route
+  return children;
 }
 
 export default ProtectedRoute;

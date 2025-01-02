@@ -83,6 +83,23 @@
   color: #aaa;
 }
 
+.toggle-visibility {
+  position: absolute;
+  right: 35px;
+  background: none;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  color: #666;
+  transition: color 0.3s ease;
+
+}
+
+.toggle-visibility:hover {
+  color: #333;
+}
+
+
 /* Terms Section */
 .terms {
   display: flex;

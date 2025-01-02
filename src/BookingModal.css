@@ -67,6 +67,11 @@
     color: #333;
     margin-bottom: -10px;
   }
+  input[name="memberId"] {
+    /* This ensures it uses the common input styling */
+    width: 95%;
+    margin-bottom: 1px;
+  }
   
   input[type="text"],
   input[type="email"],
@@ -123,6 +128,11 @@
     transform: scale(1.1); /* Slight zoom on hover */
   }
   
+  .form-group {
+    width: 100%;  /* Full width like other inputs */
+    margin-bottom: 0;  /* Remove extra margin */
+  }
+  
 /* Small Book Button */
 .small-book-button {
     background: #a3825c;
@@ -145,6 +155,21 @@
     color: #aaa;
   }
   
+  .validating-text {
+    color: #666;
+    font-size: 0.8rem;
+    font-style: italic;
+    margin-top: 10px;
+    display: block;
+  }
+
+  .error-text-memberId {
+    color: #dc3545;
+    font-size: 14px;
+    margin-top: 1px;  /* Pull it up closer to input */
+    margin-bottom: -5px;
+    display: block;
+  }
   
   .input-error {
     border-color: red;

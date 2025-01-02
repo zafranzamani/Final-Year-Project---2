@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import DatePicker from 'react-datepicker';
+import axios from 'axios';
 import 'react-datepicker/dist/react-datepicker.css';
 import './BookingModal.css';
 
@@ -15,104 +16,143 @@ function BookingModal({ onClose }) {
 
   const [errors, setErrors] = useState({});
   const [isConfirmationVisible, setIsConfirmationVisible] = useState(false);
-  const [loading, setLoading] = useState(false); // Add loading state
-  const [availableSlots, setAvailableSlots] = useState([]); // Dynamic slots
+  const [loading, setLoading] = useState(false);
+  const [availableSlots, setAvailableSlots] = useState([]);
+  const [memberIdError, setMemberIdError] = useState('');
+  const [isValidatingMemberId, setIsValidatingMemberId] = useState(false);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+  // Debounce function
+  const debounce = (func, wait) => {
+    let timeout;
+    return function executedFunction(...args) {
+      const later = () => {
+        clearTimeout(timeout);
+        func(...args);
+      };
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+    };
+  };
 
-    if (value.trim() !== '') {
-      setErrors((prevErrors) => ({ ...prevErrors, [name]: '' }));
+  const validateMemberId = async (id) => {
+    // Clear error immediately if input is empty or backspaced
+    if (!id || id.trim() === '') {
+      setMemberIdError('');
+      setIsValidatingMemberId(false);
+      return;
+    }
+
+    setIsValidatingMemberId(true);
+    try {
+      const response = await axios.get(`http://localhost:5000/validate-member/${id}`);
+      if (response.data.valid) {
+        setMemberIdError('');
+      } else {
+        setMemberIdError('Invalid Member ID');
+      }
+    } catch (error) {
+      setMemberIdError('Invalid Member ID');
+    } finally {
+      setIsValidatingMemberId(false);
     }
   };
 
-  // Fetch available slots for the selected date and barber
+  // Create debounced version of validation
+  const debouncedValidation = useCallback(
+    debounce(validateMemberId, 500),
+    []
+  );
+
+// Update handleChange to clear member ID error when input is empty
+const handleChange = (e) => {
+  const { name, value } = e.target;
+  setFormData({ ...formData, [name]: value });
+
+  if (name === 'memberId') {
+    // Clear error immediately if the field is empty
+    if (!value || value.trim() === '') {
+      setMemberIdError('');
+      setIsValidatingMemberId(false);
+    } else {
+      // Only validate if there's a value
+      debouncedValidation(value);
+    }
+  }
+
+  // Clear other form errors
+  if (value.trim() !== '') {
+    setErrors((prevErrors) => ({ ...prevErrors, [name]: '' }));
+  }
+};
+
   const fetchAvailableSlots = async (date, barber) => {
     if (!date || !barber) return;
     
-  // Adjust the date to remove timezone offset
-  const localDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
-  const normalizedDate = localDate.toISOString().split('T')[0];
+    const localDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
+    const normalizedDate = localDate.toISOString().split('T')[0];
 
-  try {
-    const response = await fetch(
-      `http://localhost:5000/available-slots?date=${normalizedDate}&barber=${barber}`
-    );
-
-    console.log("Request URL:", response.url); // Log the URL being requested
-    console.log("Request Status:", response.status); // Log the response status
+    try {
+      const response = await fetch(
+        `http://localhost:5000/available-slots?date=${normalizedDate}&barber=${barber}`
+      );
 
       if (!response.ok) {
         throw new Error('Failed to fetch available slots.');
       }
 
       const data = await response.json();
-      console.log("Available Slots Data:", data); // Log the fetched data
       setAvailableSlots(data.availableSlots || []);
     } catch (error) {
       console.error('Error fetching available slots:', error.message);
     }
   };
-  
-// Handle barber selection change
-const handleBarberChange = (e) => {
-  const barber = e.target.value;
-  console.log("Selected Barber:", barber); // Log the selected barber
-  setFormData({ ...formData, barber });
 
-  if (barber) {
-    setErrors((prevErrors) => ({ ...prevErrors, barber: '' }));
-  }
+  const handleBarberChange = (e) => {
+    const barber = e.target.value;
+    setFormData({ ...formData, barber });
 
-  // Fetch slots if date is already selected
-  fetchAvailableSlots(formData.date, barber);
-};
+    if (barber) {
+      setErrors((prevErrors) => ({ ...prevErrors, barber: '' }));
+    }
 
-// Handle date selection change
-const handleDateChange = (date) => {
-  console.log("Selected Date:", date); // Log the selected date
-  setFormData({ ...formData, date });
+    fetchAvailableSlots(formData.date, barber);
+  };
 
-  if (date) {
-    setErrors((prevErrors) => ({ ...prevErrors, date: '' }));
-  }
+  const handleDateChange = (date) => {
+    setFormData({ ...formData, date });
 
-  // Fetch slots if barber is already selected
-  fetchAvailableSlots(date, formData.barber);
-};
+    if (date) {
+      setErrors((prevErrors) => ({ ...prevErrors, date: '' }));
+    }
 
-  
-   // Validate form before submission
-   const validateForm = () => {
+    fetchAvailableSlots(date, formData.barber);
+  };
+
+  const validateForm = () => {
     const newErrors = {};
     if (!formData.name.trim()) newErrors.name = 'Name is required.';
     if (!formData.email.trim()) newErrors.email = 'Email is required.';
     if (!formData.date) newErrors.date = 'Date is required.';
     if (!formData.barber) newErrors.barber = 'Barber selection is required.';
     if (!formData.time) newErrors.time = 'Time is required.';
+    if (formData.memberId && memberIdError) newErrors.memberId = memberIdError;
     return newErrors;
   };
 
-
-   // Handle form submission
-   const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    console.log('Selected Time:', formData.time); // Debug the time value
-
+    
     const newErrors = validateForm();
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
     }
 
+    setLoading(true);
     try {
-      // Adjust the date to account for the user's local time zone
       const bookingDate = new Date(formData.date);
       const adjustedDate = new Date(bookingDate.getTime() - bookingDate.getTimezoneOffset() * 60000);
 
-      // Save booking data to the database
       const bookingResponse = await fetch('http://localhost:5000/book-session', {
         method: 'POST',
         headers: {
@@ -120,10 +160,10 @@ const handleDateChange = (date) => {
         },
         body: JSON.stringify({
           name: formData.name,
-          memberId: formData.memberId,
+          memberId: formData.memberId || null,
           email: formData.email,
           barber: formData.barber,
-          date: adjustedDate.toISOString().split('T')[0], // Send date in YYYY-MM-DD format
+          date: adjustedDate.toISOString().split('T')[0],
           time: formData.time,
         }),
       });
@@ -133,12 +173,6 @@ const handleDateChange = (date) => {
         throw new Error(errorData.error || 'Failed to save booking.');
       }
 
-      const bookingResult = await bookingResponse.json();
-      console.log('Booking saved:', bookingResult);
-
-      setLoading(true); // Start loading animation
-  
-      // Send confirmation email
       const emailResponse = await fetch('http://localhost:5000/send-email', {
         method: 'POST',
         headers: {
@@ -155,23 +189,19 @@ const handleDateChange = (date) => {
       });
 
       if (!emailResponse.ok) {
-        const emailError = await emailResponse.json();
-        throw new Error(emailError.error || 'Failed to send email.');
+        throw new Error('Failed to send confirmation email.');
       }
 
-      const emailResult = await emailResponse.json();
-      console.log('Email sent:', emailResult);
-
-  
-      setIsConfirmationVisible(true); // Show confirmation modal
+      setIsConfirmationVisible(true);
     } catch (error) {
       console.error('Error:', error.message);
       alert(error.message);
     } finally {
-      setLoading(false); // Stop loading animation
+      setLoading(false);
     }
   };
 
+  // Rest of your render code remains the same...
   if (loading) {
     return (
       <div className="loading-modal-overlay">
@@ -182,15 +212,6 @@ const handleDateChange = (date) => {
       </div>
     );
   }
-
-  const sendConfirmationEmail = async () => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        console.log('Simulated email sent successfully.');
-        resolve();
-      }, 1000); // Simulate a 1-second delay
-    });
-  };
 
   if (isConfirmationVisible) {
     return (
@@ -248,14 +269,24 @@ const handleDateChange = (date) => {
           />
           {errors.name && <p className="error-text">{errors.name}</p>}
 
-          <label>Member ID</label>
-          <input
-            type="text"
-            name="memberId"
-            placeholder="Your Member ID"
-            value={formData.memberId}
-            onChange={handleChange}
-          />
+          <div className="form-group">
+            <label>Member ID
+            <input
+              type="text"
+              name="memberId"
+              placeholder="Become a member and get a discount"
+              value={formData.memberId}
+              onChange={handleChange}
+              className={memberIdError ? 'input-error' : ''}
+            />
+          </label>
+            {isValidatingMemberId && (
+              <span className="validating-text">Checking member ID...</span>
+            )}
+            {memberIdError && (
+              <p className="error-text-memberId">{memberIdError}</p>
+            )}
+          </div>
 
           <label>
             Email address <span className="required">*</span>
@@ -282,8 +313,8 @@ const handleDateChange = (date) => {
               required
             >
               <option value="">Select Barber</option>
-              <option value="barber1">Barber 1</option>
-              <option value="barber2">Barber 2</option>
+              <option value="Amin">Amin</option>
+              <option value="Azmir">Azmir</option>
             </select>
             <span className="dropdown-icon">▼</span>
           </div>

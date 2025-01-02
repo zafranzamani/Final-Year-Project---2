@@ -5,6 +5,7 @@ function StaffLogin() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(""); // State for error message
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
@@ -12,30 +13,27 @@ function StaffLogin() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-
+    setErrorMessage(""); // Clear any previous error messages
+  
     try {
       const response = await fetch('http://localhost:5000/staff-login', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password }),
       });
-
+  
       if (!response.ok) {
         const errorData = await response.json();
-        alert(errorData.error || 'Failed to log in. Please try again.');
-        return;
+        setErrorMessage(errorData.error || 'An unexpected error occurred.');
+      } else {
+        const { accessToken, refreshToken } = await response.json();
+        sessionStorage.setItem('authToken', accessToken);
+        sessionStorage.setItem('refreshToken', refreshToken);
+        window.location.href = '/dashboard';
       }
-
-      const { accessToken, refreshToken } = await response.json();
-      sessionStorage.setItem('authToken', accessToken);
-      sessionStorage.setItem('refreshToken', refreshToken); // Store refresh token
-      window.location.href = '/dashboard';
     } catch (error) {
       console.error('Login error:', error.message);
-      alert('An error occurred. Please try again.');
+      setErrorMessage('An unexpected error occurred. Please try again.');
     }
   };
 
@@ -75,7 +73,9 @@ function StaffLogin() {
               {passwordVisible ? '👁️' : '👁️‍🗨️'}
             </span>
           </div>
-
+          {errorMessage && (
+          <div className="error-message">{errorMessage}</div> // Display error message
+        )}
           {/* Forgot Password Link */}
           <a href="/forgot-password" className="forgot-password">
             Forgot Password?
